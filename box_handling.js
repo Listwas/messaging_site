@@ -76,13 +76,31 @@ function applyBoxUtilities(element) {
 // removing boxes
 let isRemovingMode = false;
 
-document.getElementById("removeBox").addEventListener("click", function () {
-  isRemovingMode = !isRemovingMode;
-  this.textContent = isRemovingMode ? "removing.." : "remove mode off";
-  document.querySelectorAll(".resizable").forEach((box) => {
-    box.style.cursor = isRemovingMode ? "pointer" : "default";
-  });
+document.addEventListener("keydown", function (e) {
+  function toggleRemoveMode(e) {
+    if (e.key === "Alt") {
+      e.preventDefault();
+      if (e.type === "keydown") {
+        isRemovingMode = true;
+      } else if (e.type === "keyup") {
+        isRemovingMode = false;
+      }
+      updateRemoveModeStatus();
+    }
+  }
+  document.addEventListener("keydown", toggleRemoveMode);
+  document.addEventListener("keyup", toggleRemoveMode);
 });
+
+function updateRemoveModeStatus() {
+  const removeBoxButton = document.getElementById("removeBox");
+  removeBoxButton.textContent = isRemovingMode
+    ? "removing.."
+    : "remove mode off";
+  document.querySelectorAll(".resizable").forEach((box) => {
+    box.style.cursor = isRemovingMode ? "pointer" : "";
+  });
+}
 
 document.addEventListener("click", function (e) {
   if (isRemovingMode && e.target.classList.contains("resizable")) {

@@ -30,8 +30,10 @@ body {
 .resizable {
     position: absolute;
     overflow: hidden;
-    width: 20%; 
-    height: 50vh; 
+    width: 20%;
+    height: 50vh;
+    min-width: 10%;
+    min-height: 40vh; 
     border: 3px solid rgb(99, 21, 64); 
     border-radius: 4%;
     background-color: #4d1132ce;

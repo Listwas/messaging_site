@@ -12,11 +12,11 @@ body {
 
 /* adjust box size  */
 .resizable {
-    position: relative;
+    position: absolute;
     overflow: hidden;
     width: 20%; 
     height: 50vh; 
-    border: 1px solid #000; 
+    border: 1px solid red; 
     margin: 10px 0;
 }
 

@@ -3,7 +3,7 @@ document.querySelectorAll(".resizable").forEach((resizable) => {
   let isResizing = false;
 
   let isDragging = false;
-  let dragStartX, dragSTartY;
+  let dragStartX, dragStartY;
 
   // right click drag
   resizable.addEventListener("contextmenu", (e) => {

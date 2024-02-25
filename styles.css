@@ -32,7 +32,9 @@ body {
     overflow: hidden;
     width: 20%; 
     height: 50vh; 
-    border: 1px solid red; 
+    border: 3px solid rgb(99, 21, 64); 
+    border-radius: 4%;
+    background-color: #4d1132ce;
     margin: 10px 0;
 }
 

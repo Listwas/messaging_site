@@ -72,3 +72,21 @@ function applyBoxUtilities(element) {
     });
   });
 }
+
+// removing boxes
+let isRemovingMode = false;
+
+document.getElementById("removeBox").addEventListener("click", function () {
+  isRemovingMode = !isRemovingMode;
+  this.textContent = isRemovingMode ? "removing.." : "remove mode off";
+  document.querySelectorAll(".resizable").forEach((box) => {
+    box.style.cursor = isRemovingMode ? "pointer" : "default";
+  });
+});
+
+document.addEventListener("click", function (e) {
+  if (isRemovingMode && e.target.classList.contains("resizable")) {
+    e.target.style.display = "none";
+    e.stopPropagation();
+  }
+});

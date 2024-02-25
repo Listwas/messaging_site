@@ -10,12 +10,22 @@ body {
 }
 
 #addBox{
-    position: relative;
-    margin: -2vh 0 0 95vw;
-    width: 20vh;
+    position: absolute;
+    margin: -2vh 0 0 92vw;
+    border: 5px solid #1f1f1f;
+    border-radius: 15%;
+    min-width: 8vw;
     height: 10vh;
 }
 
+#removeBox {
+    position: absolute;
+    margin: 7.5vh 0 0 94.8vw;
+    border: 2px solid #1f1f1f;
+    border-radius: 25%;
+    min-width: 5vw;
+    height: 10vh;
+}
 /* adjust box size  */
 .resizable {
     position: absolute;

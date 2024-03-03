@@ -5,8 +5,8 @@ body {
 #main_block {
     display: flex;
     min-width: 99.5%;
-    height: auto;
-    gap: 10px
+    height: 98vh;
+    border: 1px solid red;
 }
 
 #addBox{

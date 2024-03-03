@@ -3,9 +3,9 @@ body {
 }
 
 #main_block {
-    display: flex;
-    min-width: 99.5%;
-    height: 98vh;
+    display: absolute;
+    min-width: 98.5%;
+    min-height: 98vh;
     border: 1px solid red;
 }
 
@@ -45,9 +45,19 @@ body {
     position: absolute;
     bottom: 0;
     right: 0;
-    min-width: 100%;
-    height: 20px;
+    min-width: 40%;
+    margin-right: 30%;
+    min-height: 10px;
+    border-radius: 5px;
     background-color: darkgrey;
     cursor: se-resize;
-    clip-path: inset(20% 30% 0% 30%);       /* round 5% 20% 0 10% */
+}
+
+.resize-visual:hover {
+    background-color: white;
+    min-width: 45%;
+    min-height: 13px;
+    margin-right: 27.5%;
+    transition: all 0.2s ease-out;
+    cursor: move;
 }

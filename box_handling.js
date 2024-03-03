@@ -20,6 +20,7 @@ function applyBoxUtilities(element) {
     resizable.addEventListener("contextmenu", (e) => {
       e.preventDefault(); // with this, browser actions will be invisible
     });
+
     resizable.addEventListener("mousedown", (e) => {
       if (e.button === 2 && e.target !== dragHandle) {
         isDragging = true;
@@ -27,10 +28,13 @@ function applyBoxUtilities(element) {
         dragStartY = e.clientY - resizable.offsetTop;
 
         function doDrag(e) {
-          if (isDragging) {
-            resizable.style.left = e.clientX - dragStartX + "px";
-            resizable.style.top = e.clientY - dragStartY + "px";
-          }
+          if (!isDragging) return;
+
+          let newX = e.clientX - dragStartX;
+          let newY = e.clientY - dragStartY;
+
+          resizable.style.left = newX + "px";
+          resizable.style.top = newY + "px";
         }
 
         function stopDrag() {

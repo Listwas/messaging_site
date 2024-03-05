@@ -1,0 +1,54 @@
+body {
+    background-color: #1f1f1f;
+}
+
+#main_block {
+    display: absolute;
+    min-width: 98.5%;
+    min-height: 98vh;
+}
+
+.button {
+    position: relative;
+    margin: -1vh -.5vw 0 .5vw;
+    border: 1px solid #1f1f1f;
+    border-radius: 8px;
+    min-width: 6vw;
+    min-height: 2vh;
+}
+
+/* adjust box size  */
+.box {
+    position: absolute;
+    overflow: hidden;
+    width: 20%;
+    height: 50vh;
+    min-width: 10%;
+    min-height: 40vh; 
+    border: 3px solid rgb(99, 21, 64); 
+    border-radius: 4%;
+    background-color: #4d1132ce;
+    margin: 10px 0;
+}
+
+/* change resize box looks */
+.resize_visual {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    min-width: 40%;
+    margin-right: 30%;
+    min-height: 10px;
+    border-radius: 5px;
+    background-color: darkgrey;
+    cursor: se-resize;
+}
+
+.resize_visual:hover {
+    background-color: white;
+    min-width: 45%;
+    min-height: 13px;
+    margin-right: 27.5%;
+    transition: all 0.2s ease-out;
+    cursor: move;
+}

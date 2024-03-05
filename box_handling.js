@@ -1,12 +1,6 @@
-// adding new boxes
-document.querySelector("#add_box").addEventListener("click", () => {
-  const boxContainer = document.querySelector("#main_block");
-  const newBox = document.createElement("div");
-
-  newBox.className = "box";
-  newBox.innerHTML = '<div class="resize_visual"></div>';
-  boxContainer.appendChild(newBox);
-  append_box_features(newBox);
+// preventing browser default actions
+document.addEventListener("contextmenu", (e) => {
+  e.preventDefault();
 });
 //---------------------------------------------------------
 
@@ -14,10 +8,8 @@ document.querySelector("#add_box").addEventListener("click", () => {
 let removing_mode = false;
 
 function remove_status() {
-  const removeBoxButton = document.getElementById("remove_box");
-  removeBoxButton.textContent = removing_mode
-    ? "removing.."
-    : "remove mode off";
+  const remove_box = document.getElementById("remove_box");
+  remove_box.textContent = removing_mode ? "removing.." : "remove mode off";
   document.querySelectorAll(".resizable").forEach((box) => {
     box.style.cursor = removing_mode ? "pointer" : "";
   });
@@ -53,6 +45,18 @@ document.addEventListener("click", (e) => {
 });
 //---------------------------------------------------------
 
+// adding new boxes
+document.querySelector("#add_box").addEventListener("click", () => {
+  const box_container = document.querySelector("#main_block");
+  const new_box = document.createElement("div");
+
+  new_box.className = "box";
+  new_box.innerHTML = '<div class="resize_visual"></div>';
+  box_container.appendChild(new_box);
+  append_box_features(new_box);
+});
+//---------------------------------------------------------
+
 // adding fetures to new boxes
 function append_box_features(new_box) {
   const resize = new_box.querySelector(".resize_visual");
@@ -84,5 +88,36 @@ function append_box_features(new_box) {
     window.addEventListener("mousemove", do_resize);
     window.addEventListener("mouseup", stop_resize);
   });
+
+  // drag by right click
+  let is_dragging = false;
+  new_box.addEventListener("mousedown", (e) => {
+    if (e.button === 2 && e.target !== resize) {
+      is_dragging = true;
+      let drag_start_x = e.clientX - new_box.offsetLeft;
+      let drag_start_y = e.clientY - new_box.offsetTop;
+
+      function do_drag(e) {
+        if (is_dragging) {
+          let newX = e.clientX - drag_start_x;
+          let newY = e.clientY - drag_start_y;
+
+          new_box.style.position = "absolute";
+          new_box.style.left = newX + "px";
+          new_box.style.top = newY + "px";
+        }
+      }
+
+      function stop_drag() {
+        is_dragging = false;
+        window.removeEventListener("mousemove", do_drag);
+        window.removeEventListener("mouseup", stop_drag);
+      }
+
+      window.addEventListener("mousemove", do_drag); // Corrected event name
+      window.addEventListener("mouseup", stop_drag);
+    }
+  });
 }
+
 //---------------------------------------------------------

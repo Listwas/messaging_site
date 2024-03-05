@@ -45,6 +45,7 @@ document.addEventListener("keyup", (e) => {
   }
 });
 //---------------------------------------------------------
+
 // acually removing boxes
 document.addEventListener("click", (e) => {
   if (removing_mode && e.target.classList.contains("box")) {

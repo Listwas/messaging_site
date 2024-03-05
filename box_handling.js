@@ -1,114 +1,88 @@
 // adding new boxes
-document.getElementById("addBox").addEventListener("click", function () {
+document.querySelector("#add_box").addEventListener("click", () => {
   const boxContainer = document.querySelector("#main_block");
   const newBox = document.createElement("div");
-  newBox.classList.add("resizable");
-  newBox.innerHTML = '<div class="resize-visual"></div>';
+
+  newBox.className = "box";
+  newBox.innerHTML = '<div class="resize_visual"></div>';
   boxContainer.appendChild(newBox);
-  applyBoxUtilities(newBox);
+  appendBoxFeatures(newBox);
 });
+//---------------------------------------------------------
 
-function applyBoxUtilities(element) {
-  document.querySelectorAll(".resizable").forEach((resizable) => {
-    const dragHandle = resizable.querySelector(".resize-visual");
-    let isResizing = false;
+// removing boxes on button click or 'Alt' key
+let removing_mode = false;
 
-    let isDragging = false;
-    let dragStartX, dragStartY;
-
-    // right click drag
-    resizable.addEventListener("contextmenu", (e) => {
-      e.preventDefault(); // with this, browser actions will be invisible
-    });
-
-    resizable.addEventListener("mousedown", (e) => {
-      if (e.button === 2 && e.target !== dragHandle) {
-        isDragging = true;
-        dragStartX = e.clientX - resizable.offsetLeft;
-        dragStartY = e.clientY - resizable.offsetTop;
-
-        function doDrag(e) {
-          if (!isDragging) return;
-
-          let newX = e.clientX - dragStartX;
-          let newY = e.clientY - dragStartY;
-
-          resizable.style.left = newX + "px";
-          resizable.style.top = newY + "px";
-        }
-
-        function stopDrag() {
-          window.removeEventListener("mousemove", doDrag);
-          window.removeEventListener("mouseup", stopDrag);
-          isDragging = false;
-        }
-
-        window.addEventListener("mousemove", doDrag);
-        window.addEventListener("mouseup", stopDrag);
-      }
-    });
-
-    // resize
-    dragHandle.addEventListener("mousedown", (e) => {
-      e.preventDefault();
-      isResizing = true;
-      let startX, startY, startWidth, startHeight;
-      startX = e.clientX;
-      startY = e.clientY;
-      startWidth = resizable.offsetWidth;
-      startHeight = resizable.offsetHeight;
-
-      function doResize(e) {
-        if (isResizing) {
-          resizable.style.width = startWidth + e.clientX - startX + "px";
-          resizable.style.height = startHeight + e.clientY - startY + "px";
-        }
-      }
-
-      function stopResize() {
-        window.removeEventListener("mousemove", doResize);
-        window.removeEventListener("mouseup", stopResize);
-        isResizing = false;
-      }
-
-      window.addEventListener("mousemove", doResize);
-      window.addEventListener("mouseup", stopResize);
-    });
-  });
-}
-
-// removing boxes
-let isRemovingMode = false;
-
-document.addEventListener("keydown", function (e) {
-  function toggleRemoveMode(e) {
-    if (e.key === "Alt") {
-      e.preventDefault();
-      if (e.type === "keydown") {
-        isRemovingMode = true;
-      } else if (e.type === "keyup") {
-        isRemovingMode = false;
-      }
-      updateRemoveModeStatus();
-    }
-  }
-  document.addEventListener("keydown", toggleRemoveMode);
-  document.addEventListener("keyup", toggleRemoveMode);
-});
-
-function updateRemoveModeStatus() {
-  const removeBoxButton = document.getElementById("removeBox");
-  removeBoxButton.textContent = isRemovingMode
+function remove_status() {
+  const removeBoxButton = document.getElementById("remove_box");
+  removeBoxButton.textContent = removing_mode
     ? "removing.."
     : "remove mode off";
   document.querySelectorAll(".resizable").forEach((box) => {
-    box.style.cursor = isRemovingMode ? "pointer" : "";
+    box.style.cursor = removing_mode ? "pointer" : "";
   });
 }
 
-document.addEventListener("click", function (e) {
-  if (isRemovingMode && e.target.classList.contains("resizable")) {
-    e.target.style.display = "none";
-    e.stopPropagation();
+document.querySelector("#remove_box").addEventListener("click", () => {
+  removing_mode = !removing_mode; // toggle removing mode on button click
+  remove_status();
+});
+
+// keydown and keyup events for removal mode toggle
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Alt") {
+    e.preventDefault();
+    removing_mode = true;
+    remove_status();
   }
 });
+
+document.addEventListener("keyup", (e) => {
+  if (e.key === "Alt") {
+    e.preventDefault();
+    removing_mode = false;
+    remove_status();
+  }
+});
+//---------------------------------------------------------
+// acually removing boxes
+document.addEventListener("click", (e) => {
+  if (removing_mode && e.target.classList.contains("box")) {
+    e.target.remove();
+  }
+});
+//---------------------------------------------------------
+
+// adding fetures to new boxes
+function append_box_features(new_box) {
+  const resize = new_box.querySelector(".resize_visual");
+  let is_resizing = false;
+
+  resize.addEventListener("mousedown", (e) => {
+    e.preventDefault();
+    is_resizing = true;
+
+    let startX = e.clientX;
+    let startWidth = new_box.offsetWidth;
+
+    let startY = e.clientY;
+    let startHeight = new_box.offsetHeight;
+
+    function do_resize(e) {
+      if (is_resizing) {
+        new_box.style.width = startWidth + e.clientX - startX + "px";
+        new_box.style.height = startHeight + e.clientY - startY + "px";
+      }
+    }
+
+    function stop_resize() {
+      is_resizing = false;
+      window.removeEventListener("mousemove", do_resize);
+      window.removeEventListener("mouseup", stop_resize);
+    }
+
+    window.addEventListener("mousemove", do_resize);
+    window.addEventListener("mouseup", stop_resize);
+  });
+}
+//---------------------------------------------------------

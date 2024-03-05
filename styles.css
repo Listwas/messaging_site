@@ -6,28 +6,19 @@ body {
     display: absolute;
     min-width: 98.5%;
     min-height: 98vh;
-    border: 1px solid red;
 }
 
-#addBox{
-    position: absolute;
-    margin: -2vh 0 0 92vw;
-    border: 5px solid #1f1f1f;
-    border-radius: 15%;
-    min-width: 8vw;
-    height: 10vh;
+.button {
+    position: relative;
+    margin: -1vh -.5vw 0 .5vw;
+    border: 1px solid #1f1f1f;
+    border-radius: 8px;
+    min-width: 6vw;
+    min-height: 2vh;
 }
 
-#removeBox {
-    position: absolute;
-    margin: 7.5vh 0 0 94.8vw;
-    border: 2px solid #1f1f1f;
-    border-radius: 25%;
-    min-width: 5vw;
-    height: 10vh;
-}
 /* adjust box size  */
-.resizable {
+.box {
     position: absolute;
     overflow: hidden;
     width: 20%;
@@ -41,7 +32,7 @@ body {
 }
 
 /* change resize box looks */
-.resize-visual {
+.resize_visual {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -53,7 +44,7 @@ body {
     cursor: se-resize;
 }
 
-.resize-visual:hover {
+.resize_visual:hover {
     background-color: white;
     min-width: 45%;
     min-height: 13px;

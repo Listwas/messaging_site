@@ -6,7 +6,7 @@ document.querySelector("#add_box").addEventListener("click", () => {
   newBox.className = "box";
   newBox.innerHTML = '<div class="resize_visual"></div>';
   boxContainer.appendChild(newBox);
-  appendBoxFeatures(newBox);
+  append_box_features(newBox);
 });
 //---------------------------------------------------------
 
@@ -44,7 +44,6 @@ document.addEventListener("keyup", (e) => {
     remove_status();
   }
 });
-//---------------------------------------------------------
 
 // acually removing boxes
 document.addEventListener("click", (e) => {

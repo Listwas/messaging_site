@@ -6,6 +6,7 @@ body {
     display: absolute;
     min-width: 98.5%;
     min-height: 98vh;
+    border: 1px solid red;
 }
 
 .button {
@@ -45,6 +46,7 @@ body {
 }
 
 .resize_visual:hover {
+.resize-visual:hover {
     background-color: white;
     min-width: 45%;
     min-height: 13px;
